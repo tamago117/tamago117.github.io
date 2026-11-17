@@ -1,0 +1,32 @@
+---
+import Base from '../layouts/Base.astro';
+import NewsList from '../components/NewsList.astro';
+import { getNews } from '../lib/site';
+
+const news = await getNews();
+const years = [...new Set(news.map((n) => n.data.date.slice(0, 4)))];
+---
+
+<Base title="News">
+  <h1 class="page-title">News</h1>
+  <p class="page-lead">Updates on papers, talks, awards, and positions.</p>
+  {
+    years.map((y) => (
+      <section class="year">
+        <h2>{y}</h2>
+        <NewsList items={news.filter((n) => n.data.date.startsWith(y))} />
+      </section>
+    ))
+  }
+</Base>
+
+<style>
+  .year {
+    margin-top: 32px;
+  }
+  .year h2 {
+    font-size: 1.1rem;
+    margin: 0 0 4px;
+    color: var(--muted);
+  }
+</style>

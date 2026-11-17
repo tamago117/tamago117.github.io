@@ -1,0 +1,42 @@
+# News
+# 新しいお知らせは一番上に追加する（表示は date の降順に自動で並ぶ）
+#   date: "2026.11.17" / "2026.11" / "2026" のどれでもよい
+#   text: 本文。[リンク文字](https://...) と **太字** が使える
+#   project: プロジェクトの slug を書くとそのページへのリンクが付く（任意）
+#
+# ↓ 初期データ：旧サイトに載っていた業績・経歴から作ったもの。日付や文面は自由に直してください
+
+- date: "2026.11"
+  text: 'Preprint "3D Pose Estimation in Projection Space via Pixel-level Visible Light Communication" is now on [arXiv](https://arxiv.org/abs/2611.06121).'
+  project: visible-light-localization
+
+- date: "2026.11"
+  text: "**Fluidic Body: Swarm Robots as a Fluid Extension of the Hand** is published in Proc. ACM HCI (ISS 2026). [arXiv](https://arxiv.org/abs/2611.06068)"
+  project: fluidic-body
+
+- date: "2026.10"
+  text: "**HaptoFlow** is presented at IEEE ISMAR 2026. [Project page](https://tamago117.github.io/HaptoFlow/)"
+  project: haptoflow
+
+- date: "2026.09"
+  text: 'Preprint "ReVNM: Learning-Based Visual Navigation from a Remote Camera" is now on [arXiv](https://arxiv.org/abs/2609.28976).'
+  project: revnm
+
+- date: "2026.09"
+  text: Three papers presented at the 31st Annual Conference of the Virtual Reality Society of Japan (VRSJ 2026).
+
+- date: "2026.07"
+  text: Two WiP papers (HapCap, TactScribe) presented at EuroHaptics 2026.
+
+- date: "2026"
+  text: "**Cluster Haptic Texture Dataset** is published in Scientific Data."
+  project: haptic-texture-database
+
+- date: "2025.10"
+  text: 'Our project "Haptic generative AI with user-motion feedback" is adopted for JST ACT-X.'
+
+- date: "2025.09"
+  text: Started a research internship at CyberAgent AI Lab (Activity Understanding Team).
+
+- date: "2025.04"
+  text: Started the doctoral program at University of Tsukuba, as a JSPS Research Fellow (DC1).

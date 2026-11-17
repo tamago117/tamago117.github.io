@@ -1,0 +1,86 @@
+name: Michikuni Eguchi
+nameJa: 江口 満国
+handle: tamago117
+# 自己紹介（トップに表示）。tagline は肩書き1行、bio は2文程度に
+tagline: Ph.D. Student, University of Tsukuba · JSPS Research Fellow (DC1)
+bio: >-
+  My research centers on robotics and haptics.
+  I am interested in building systems that act intelligently for both humans and robots.
+affiliation: University of Tsukuba
+email: egrt117[at]gmail.com
+# SNS・外部リンク（トップ・フッター・CV に表示）
+# icon: github / x / linkedin / scholar / email（無ければ文字だけ）
+links:
+  - label: GitHub
+    handle: tamago117
+    icon: github
+    url: https://github.com/tamago117
+  - label: X
+    handle: "@eg117117"
+    icon: x
+    url: https://x.com/eg117117
+  - label: LinkedIn
+    handle: LinkedIn
+    icon: linkedin
+    url: https://www.linkedin.com/in/michikuni-eguchi-b93bb3208/
+
+interests:
+  - Robotics
+  - Haptics
+
+history:
+  - period: 2025.9 – 2025.10
+    title: Research Intern, CyberAgent AI Lab
+    detail: "Activity Understanding Team. Mentors: Kohei Honda, Ryo Yonetani"
+  - period: 2025.4 –
+    title: Ph.D. student, University of Tsukuba
+    detail: "Supervisor: Takefumi Hiraki. JSPS Research Fellow (DC1)"
+  - period: 2023.8 –
+    title: Research Assistant, Cluster Metaverse Lab
+    url: https://lab.cluster.mu/en/
+  - period: 2023.4 – 2025.3
+    title: Master's student, University of Tsukuba
+    detail: "Supervisor: Takefumi Hiraki"
+  - period: 2022.4 – 2023.3
+    title: Intelligent Robotics Laboratory, University of Tsukuba
+    detail: Model predictive control
+    url: https://www.roboken.iit.tsukuba.ac.jp/
+  - period: 2022.1 –
+    title: Part-time Engineer, ARAV
+    detail: Simulator for autonomous operation of construction machinery
+    url: https://www.arav.jp/
+  - period: 2021.4 – 2023.3
+    title: Bachelor's student, University of Tsukuba
+  - period: 2015.4 – 2020.3
+    title: Department of Mechanical Engineering, Kobe City College of Technology
+
+awards:
+  - year: 2024
+    title: SICE International Young Authors Award (SIYA-IROS2024)
+  - year: 2023
+    title: 日本水中ロボネット 水中ロボットコンペティション in JAMSTEC 2023 ビデオ部門 優勝
+  - year: 2023
+    title: つくばチャレンジ2023 全コース区間自律移動達成
+  - year: 2018
+    title: NHK 高専ロボコン 2018 全国大会 ローム株式会社特別賞
+
+grants:
+  - period: 2025.10 – 2028.3
+    title: JST ACT-X「次世代AIを築く数理・情報科学の革新」
+    detail: Haptic generative AI with user-motion feedback
+  - period: 2025.4 – 2028.3
+    title: JSPS Research Fellowship for Young Scientists (DC1)
+
+scholarships:
+  - period: 2021.8 – 2023.3
+    title: Hara Foundation for Full-Time System Science and Technology Scholarship
+  - period: 2022.4 – 2023.3
+    title: Iwasa Foundation for Education and Culture Scholarship
+
+skills:
+  - area: Programming
+    items: C/C++, Python, C# (Unity)
+  - area: Robotics
+    items: ROS 1, ROS 2, Image processing (OpenCV)
+  - area: Mechanical / Electronics
+    items: Mechanical design (SolidWorks, Fusion 360), Circuit design (Eagle)

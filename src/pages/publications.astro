@@ -1,0 +1,61 @@
+---
+import Base from '../layouts/Base.astro';
+import PubItem from '../components/PubItem.astro';
+import { CATEGORY_LABEL, getPublications } from '../lib/site';
+
+const pubs = await getPublications();
+const groups = (Object.keys(CATEGORY_LABEL) as (keyof typeof CATEGORY_LABEL)[])
+  .map((k) => ({ key: k, label: CATEGORY_LABEL[k], items: pubs.filter((p) => p.data.category === k) }))
+  .filter((g) => g.items.length > 0);
+---
+
+<Base title="Publications">
+  <h1 class="page-title">Publications</h1>
+  <p class="page-lead">{pubs.length} publications.</p>
+
+  <nav class="toc">
+    {
+      groups.map((g) => (
+        <a class="pill" href={`#${g.key}`}>
+          {g.label} <span>{g.items.length}</span>
+        </a>
+      ))
+    }
+  </nav>
+
+  {
+    groups.map((g) => (
+      <section class="section" id={g.key}>
+        <div class="section-head">
+          <h2>{g.label}</h2>
+        </div>
+        <ul class="plain">
+          {g.items.map((p) => (
+            <PubItem pub={p} />
+          ))}
+        </ul>
+      </section>
+    ))
+  }
+</Base>
+
+<style>
+  .toc {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .toc span {
+    color: var(--muted);
+    font-size: 0.85em;
+  }
+  .plain {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .section {
+    scroll-margin-top: 80px;
+    margin-top: 44px;
+  }
+</style>

@@ -1,0 +1,157 @@
+---
+import Base from '../layouts/Base.astro';
+import { profile } from '../lib/site';
+---
+
+<Base title="CV">
+  <h1 class="page-title">CV</h1>
+  <p class="page-lead">
+    {profile.name}（{profile.nameJa}）· {profile.email}
+    {
+      profile.links.map((l) => (
+        <>
+          {' · '}
+          <a href={l.url} target="_blank" rel="noopener">
+            {l.label}: {l.handle ?? l.url}
+          </a>
+        </>
+      ))
+    }
+  </p>
+
+  <section class="section">
+    <div class="section-head"><h2>Education & Experience</h2></div>
+    <ol class="timeline">
+      {
+        profile.history.map((h) => (
+          <li>
+            <span class="when">{h.period}</span>
+            <div>
+              <div class="what">
+                {h.url ? (
+                  <a href={h.url} target="_blank" rel="noopener">
+                    {h.title}
+                  </a>
+                ) : (
+                  h.title
+                )}
+              </div>
+              {h.detail && <div class="detail">{h.detail}</div>}
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><h2>Awards</h2></div>
+    <ol class="timeline">
+      {
+        profile.awards.map((a) => (
+          <li>
+            <span class="when">{a.year}</span>
+            <div class="what">{a.title}</div>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><h2>Research Grants</h2></div>
+    <ol class="timeline">
+      {
+        profile.grants.map((g) => (
+          <li>
+            <span class="when">{g.period}</span>
+            <div>
+              <div class="what">{g.title}</div>
+              {g.detail && <div class="detail">{g.detail}</div>}
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><h2>Scholarships</h2></div>
+    <ol class="timeline">
+      {
+        profile.scholarships.map((s) => (
+          <li>
+            <span class="when">{s.period}</span>
+            <div class="what">{s.title}</div>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><h2>Skills</h2></div>
+    <dl class="skills">
+      {
+        profile.skills.map((s) => (
+          <>
+            <dt>{s.area}</dt>
+            <dd>{s.items}</dd>
+          </>
+        ))
+      }
+    </dl>
+  </section>
+</Base>
+
+<style>
+  .timeline {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .timeline li {
+    display: grid;
+    grid-template-columns: 10em 1fr;
+    gap: 16px;
+    padding: 10px 0;
+    border-bottom: 1px dashed var(--border);
+  }
+  .timeline li:last-child {
+    border-bottom: none;
+  }
+  .when {
+    color: var(--muted);
+    font-size: 0.9rem;
+    font-variant-numeric: tabular-nums;
+  }
+  .what {
+    font-weight: 500;
+  }
+  .detail {
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+  .skills {
+    display: grid;
+    grid-template-columns: 12em 1fr;
+    gap: 8px 16px;
+    margin: 0;
+  }
+  dt {
+    font-weight: 600;
+  }
+  dd {
+    margin: 0;
+  }
+  @media (max-width: 560px) {
+    .timeline li,
+    .skills {
+      grid-template-columns: 1fr;
+      gap: 2px;
+    }
+    .skills dd {
+      margin-bottom: 8px;
+    }
+  }
+</style>

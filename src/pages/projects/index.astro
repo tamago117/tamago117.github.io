@@ -1,0 +1,161 @@
+---
+import Base from '../../layouts/Base.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import { getProjects } from '../../lib/site';
+
+const projects = await getProjects();
+// タグは使われている回数の多い順
+const counts = new Map<string, number>();
+for (const p of projects) for (const t of p.data.tags) counts.set(t, (counts.get(t) ?? 0) + 1);
+const tags = [...counts.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+const n = {
+  all: projects.length,
+  research: projects.filter((p) => p.data.category === 'research').length,
+  development: projects.filter((p) => p.data.category === 'development').length,
+};
+---
+
+<Base title="Projects">
+  <h1 class="page-title">Projects</h1>
+  <p class="page-lead">Research and development projects. Filter by category or topic.</p>
+
+  <div class="filters">
+    <div class="seg" role="tablist" aria-label="Category">
+      <button type="button" data-cat="all" aria-pressed="true">All <span>{n.all}</span></button>
+      <button type="button" data-cat="research" aria-pressed="false">Research <span>{n.research}</span></button>
+      <button type="button" data-cat="development" aria-pressed="false"
+        >Development <span>{n.development}</span></button
+      >
+    </div>
+    <div class="tagbar" aria-label="Topics">
+      {
+        tags.map(([t, c]) => (
+          <button type="button" class="chip" data-tag={t} aria-pressed="false">
+            {t} <span>{c}</span>
+          </button>
+        ))
+      }
+    </div>
+  </div>
+
+  <div class="grid" id="grid">{projects.map((p) => <ProjectCard project={p} />)}</div>
+  <p class="empty" id="empty" hidden>No projects match this filter.</p>
+</Base>
+
+<script>
+  const grid = document.getElementById('grid')!;
+  const empty = document.getElementById('empty')!;
+  const cards = [...grid.querySelectorAll<HTMLElement>('.card')];
+  const catBtns = [...document.querySelectorAll<HTMLButtonElement>('[data-cat]')];
+  const tagBtns = [...document.querySelectorAll<HTMLButtonElement>('[data-tag]')];
+
+  const params = new URLSearchParams(location.search);
+  let cat = params.get('category') ?? 'all';
+  let tag = params.get('tag');
+
+  function apply() {
+    let shown = 0;
+    for (const c of cards) {
+      const okCat = cat === 'all' || c.dataset.category === cat;
+      const okTag = !tag || (c.dataset.tags ?? '').split('|').includes(tag);
+      c.hidden = !(okCat && okTag);
+      if (!c.hidden) shown++;
+    }
+    empty.hidden = shown > 0;
+    catBtns.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.cat === cat)));
+    tagBtns.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.tag === tag)));
+    const q = new URLSearchParams();
+    if (cat !== 'all') q.set('category', cat);
+    if (tag) q.set('tag', tag);
+    history.replaceState(null, '', q.size ? `?${q}` : location.pathname);
+  }
+
+  catBtns.forEach((b) =>
+    b.addEventListener('click', () => {
+      cat = b.dataset.cat!;
+      apply();
+    }),
+  );
+  tagBtns.forEach((b) =>
+    b.addEventListener('click', () => {
+      tag = tag === b.dataset.tag ? null : b.dataset.tag!;
+      apply();
+    }),
+  );
+  apply();
+</script>
+
+<style>
+  .filters {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  .seg {
+    display: inline-flex;
+    align-self: flex-start;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 3px;
+    max-width: 100%;
+    overflow-x: auto;
+  }
+  .seg button {
+    border: 0;
+    background: transparent;
+    font: inherit;
+    font-size: 0.9rem;
+    color: var(--muted);
+    padding: 6px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .seg button[aria-pressed='true'] {
+    background: var(--surface);
+    color: var(--text);
+    font-weight: 600;
+    box-shadow: var(--shadow);
+  }
+  button span {
+    font-size: 0.78em;
+    color: var(--muted);
+    margin-left: 2px;
+  }
+  .tagbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .chip {
+    font: inherit;
+    font-size: 0.8rem;
+    padding: 3px 11px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text);
+    cursor: pointer;
+  }
+  .chip:hover {
+    border-color: var(--accent);
+  }
+  .chip[aria-pressed='true'] {
+    background: var(--accent-soft);
+    border-color: var(--accent);
+    color: var(--accent-text);
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+  }
+  .grid :global(.card[hidden]) {
+    display: none;
+  }
+  .empty {
+    color: var(--muted);
+  }
+</style>

@@ -1,0 +1,215 @@
+---
+import '../styles/global.css';
+import { profile, url } from '../lib/site';
+import SocialIcon from '../components/SocialIcon.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+const { title, description = `${profile.name} — ${profile.tagline}` } = Astro.props;
+const fullTitle = title ? `${title} | ${profile.name}` : `${profile.name} | Portfolio`;
+
+const nav = [
+  { href: '/', label: 'Home' },
+  { href: '/news', label: 'News' },
+  { href: '/projects', label: 'Projects' },
+  { href: '/publications', label: 'Publications' },
+  { href: '/cv', label: 'CV' },
+];
+const here = Astro.url.pathname.replace(import.meta.env.BASE_URL.replace(/\/$/, ''), '') || '/';
+const isActive = (href: string) =>
+  href === '/' ? here === '/' : here === href || here.startsWith(`${href}/`);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="icon" href={url('/favicon.svg')} type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <script is:inline>
+      try {
+        const t = localStorage.getItem('theme');
+        if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
+      } catch (e) {}
+    </script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href={url('/')}>{profile.name}</a>
+        <nav aria-label="Main">
+          {
+            nav.map((n) => (
+              <a href={url(n.href)} class:list={{ active: isActive(n.href) }}>
+                {n.label}
+              </a>
+            ))
+          }
+          <button class="theme-toggle" type="button" aria-label="Toggle dark mode" title="Toggle theme">
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"
+              ><path
+                fill="currentColor"
+                d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.39 5.39 0 0 1-4.4 2.26 5.4 5.4 0 0 1-3.14-9.8A9.1 9.1 0 0 0 12 3Z"
+              ></path></svg
+            >
+          </button>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <span>© {new Date().getFullYear()} {profile.name}</span>
+        <span class="footer-links">
+          {
+            profile.links.map((l) => (
+              <a href={l.url} target="_blank" rel="noopener" aria-label={l.label} title={l.label}>
+                <SocialIcon name={l.icon} size={18} />
+                {!l.icon && l.label}
+              </a>
+            ))
+          }
+        </span>
+      </div>
+    </footer>
+
+    <script is:inline>
+      document.querySelector('.theme-toggle')?.addEventListener('click', () => {
+        const root = document.documentElement;
+        const dark =
+          root.dataset.theme === 'dark' ||
+          (!root.dataset.theme && matchMedia('(prefers-color-scheme: dark)').matches);
+        const next = dark ? 'light' : 'dark';
+        root.dataset.theme = next;
+        try {
+          localStorage.setItem('theme', next);
+        } catch (e) {}
+      });
+    </script>
+  </body>
+</html>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+  }
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    min-height: 60px;
+    flex-wrap: wrap;
+  }
+  .brand {
+    font-weight: 700;
+    color: var(--text);
+    text-decoration: none;
+    letter-spacing: -0.01em;
+  }
+  nav {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  nav a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.92rem;
+    padding: 6px 10px;
+    border-radius: 8px;
+    white-space: nowrap;
+  }
+  nav a:hover {
+    color: var(--text);
+    background: var(--surface-2);
+  }
+  nav a.active {
+    color: var(--text);
+    font-weight: 600;
+  }
+  .theme-toggle {
+    margin-left: 4px;
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--muted);
+    cursor: pointer;
+    flex: none;
+  }
+  .theme-toggle:hover {
+    color: var(--text);
+  }
+  @media (max-width: 640px) {
+    .header-inner {
+      padding-top: 10px;
+      padding-bottom: 6px;
+      gap: 4px;
+    }
+    nav {
+      width: 100%;
+      margin: 0 -10px;
+    }
+    .header-inner {
+      position: relative;
+    }
+    .theme-toggle {
+      position: absolute;
+      top: 8px;
+      right: 16px;
+    }
+  }
+  .site-footer {
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+  .footer-inner {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding-top: 24px;
+    padding-bottom: 32px;
+    flex-wrap: wrap;
+  }
+  .footer-links {
+    display: flex;
+    gap: 16px;
+  }
+  .footer-links a {
+    color: var(--muted);
+    display: inline-flex;
+  }
+  .footer-links a:hover {
+    color: var(--text);
+  }
+</style>

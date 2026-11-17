@@ -1,0 +1,274 @@
+# 業績リスト
+# category: preprint | journal | conference | wip | domestic
+# project: projects の slug（ファイル名）を書くと、そのプロジェクトページに論文が表示される
+# short: カードに出す短い発表先名（例: IROS 2024）
+# links: doi / arxiv / project / pdf / video / code / dataset（あるものだけ）
+# 自分の名前（Michikuni Eguchi / M. Eguchi / 江口 満国 / 江口満国）は自動で太字になる
+
+# ---------- Preprint ----------
+- id: revnm-arxiv
+  category: preprint
+  short: "arXiv"
+  title: "ReVNM: Learning-Based Visual Navigation from a Remote Camera"
+  authors: Michikuni Eguchi, Kohei Honda, Masafumi Endo, Yasuhiro Yoshimura and Ryo Yonetani
+  venue: arXiv:2609.28976
+  year: 2026
+  project: revnm
+  links:
+    arxiv: https://arxiv.org/abs/2609.28976
+
+- id: vlc-arxiv
+  category: preprint
+  short: "arXiv"
+  title: "3D Pose Estimation in Projection Space via Pixel-level Visible Light Communication"
+  authors: Michikuni Eguchi and Takefumi Hiraki
+  venue: arXiv:2611.06121
+  year: 2026
+  project: visible-light-localization
+  links:
+    arxiv: https://arxiv.org/abs/2611.06121
+
+# ---------- Journal ----------
+- id: fluidic-body
+  category: journal
+  short: "ISS 2026 (PACM HCI)"
+  title: "Fluidic Body: Swarm Robots as a Fluid Extension of the Hand"
+  authors: Michikuni Eguchi, Shigeo Yoshida, Mai Nishimura, and Takefumi Hiraki
+  venue: "Proc. ACM Hum.-Comput. Interact. 10, 8, Article ISS011 (November 2026), 28 pages."
+  year: 2026
+  project: fluidic-body
+  links:
+    doi: https://doi.org/10.1145/3859323
+    arxiv: https://arxiv.org/abs/2611.06068
+
+- id: haptic-texture-scidata
+  category: journal
+  short: "Scientific Data 2026"
+  title: "Cluster Haptic Texture Dataset: Haptic Texture Dataset with Varied Velocity-Direction Sliding Contacts"
+  authors: Michikuni Eguchi, Tomohiro Hayase, Yuichi Hiroi, Takefumi Hiraki
+  venue: Sci Data (2026)
+  year: 2026
+  project: haptic-texture-database
+  links:
+    doi: https://doi.org/10.1038/s41597-026-06760-z
+    dataset: https://huggingface.co/datasets/tamago117/cluster-haptic-texture-dataset
+
+- id: swarm-advrobotics
+  category: journal
+  short: "Advanced Robotics 2025"
+  title: "Fluidic Robot Swarm Control for Obstacle-Unaware Navigation"
+  authors: Michikuni Eguchi, Mai Nishimura, Shigeo Yoshida, and Takefumi Hiraki
+  venue: Advanced Robotics, 18 pages, 2025.6.
+  year: 2025
+  project: robot-swarm
+  links:
+    doi: https://doi.org/10.1080/01691864.2025.2517214
+
+# ---------- International Conference (Full Paper) ----------
+- id: haptoflow-ismar
+  category: conference
+  short: "ISMAR 2026"
+  title: "HaptoFlow: High-Fidelity Real-Time Vibrotactile Generation via Flow Matching for Virtual Reality"
+  authors: Michikuni Eguchi, Yuichi Hiroi, and Takefumi Hiraki
+  venue: Proceedings of the 25th IEEE International Symposium on Mixed and Augmented Reality (ISMAR 2026), 11 pages, 2026.10.
+  year: 2026
+  project: haptoflow
+  links:
+    arxiv: https://arxiv.org/abs/2608.01974
+    project: https://tamago117.github.io/HaptoFlow/
+
+- id: swarm-iros
+  category: conference
+  short: "IROS 2024"
+  title: "Robot Swarm Control Based on Smoothed Particle Hydrodynamics for Obstacle-Unaware Navigation"
+  authors: Michikuni Eguchi, Mai Nishimura, Shigeo Yoshida, and Takefumi Hiraki
+  venue: 2024 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS), Abu Dhabi, United Arab Emirates, 2024, pp. 9006-9013.
+  year: 2024
+  project: robot-swarm
+  award: SICE International Young Authors Award (SIYA-IROS2024)
+  links:
+    doi: https://doi.org/10.1109/IROS58592.2024.10801800
+    arxiv: https://arxiv.org/abs/2404.16309
+    video: https://www.youtube.com/watch?v=6goNSUqCfd0
+
+- id: motorcycle-iccas
+  category: conference
+  short: "ICCAS 2023"
+  title: "Dynamic Obstacle Avoidance for Autonomous Motorcycles on Racing Circuits by Nonlinear Model Predictive Control"
+  authors: M. Eguchi and H. Date
+  venue: 2023 23rd International Conference on Control, Automation and Systems (ICCAS), Yeosu, Korea, Republic of, 2023, pp. 1127-1132.
+  year: 2023
+  project: motorcycle-mpc
+  links:
+    doi: https://doi.org/10.23919/ICCAS59377.2023.10316887
+
+- id: qbot-icam
+  category: conference
+  short: "ICAM 2021"
+  title: "Q-bot Alto: A Robot Reaching Tall for In-house Logistics based on Jamming Tactile Sensing-Two-armed Manipulation with Universal Vacuum Hand"
+  authors: T. Shimizu, R. Yamamura, M. Eguchi, and S. Hara
+  venue: "The Abstracts of the International Conference on Advanced Mechatronics: Toward Evolutionary Fusion of IT and Mechatronics (ICAM 2021)"
+  year: 2021
+  project: wrs2020
+
+# ---------- International Conference (WiP / Demo) ----------
+- id: hapcap
+  category: wip
+  short: "EuroHaptics 2026 WiP"
+  title: "HapCap: Estimating Haptic Adjectives with Vision-Language Model for Dataset Annotation"
+  authors: Michikuni Eguchi, Yuichi Hiroi, Norihisa Miki, and Takefumi Hiraki
+  venue: Adjunct Proceedings of the 15th International Conference on Human Haptic Sensing and Touch Enabled Computer Applications (EuroHaptics 2026), pp. 1–3, 2026.7.
+  year: 2026
+
+- id: tactscribe
+  category: wip
+  short: "EuroHaptics 2026 WiP"
+  title: "TactScribe: A Wearable Fingertip Sensor for Vibrotactile Data Collection via Natural Stroking"
+  authors: Reina Hanzawa, Michikuni Eguchi, Kenichi Mori, Miku Nonogaki, Masanori Morita, and Takefumi Hiraki
+  venue: Adjunct Proceedings of the 15th International Conference on Human Haptic Sensing and Touch Enabled Computer Applications (EuroHaptics 2026), pp. 1–3, 2026.7.
+  year: 2026
+
+- id: cloth-sa25
+  category: wip
+  short: "SIGGRAPH Asia 2025 Poster"
+  title: "Tactile Data Recording System for Clothing with Motion-Controlled Robotic Sliding"
+  authors: Michikuni Eguchi, Takekazu Kitagishi, Yuichi Hiroi, and Takefumi Hiraki
+  venue: SIGGRAPH Asia 2025 Posters (SA Posters '25), Article 31, 1–3.
+  year: 2025
+  links:
+    doi: https://doi.org/10.1145/3757374.3771452
+    arxiv: https://arxiv.org/abs/2511.11634
+
+- id: laserhaptics-whc
+  category: wip
+  short: "WHC 2025 WiP"
+  title: "LaserHaptics: Mid-Air Haptic Feedback via Laser-Induced Cavitation using Low Boiling-Point Liquid"
+  authors: Michikuni Eguchi, Ryota Sakuma, Takefumi Hiraki
+  venue: IEEE World Haptics Conference 2025 Work-in-Progress Papers, Suwon, Korea, 2025
+  year: 2025
+  project: laser-haptics
+
+- id: haptic-texture-whc
+  category: wip
+  short: "WHC 2025 WiP"
+  title: "Cluster Haptic Texture Database: Haptic Texture Database with Controlled Sliding-Contact Interactions"
+  authors: Michikuni Eguchi, Yuichi Hiroi, Tomohiro Hayase, Takefumi Hiraki
+  venue: IEEE World Haptics Conference 2025 Work-in-Progress Papers, Suwon, Korea, 2025
+  year: 2025
+  project: haptic-texture-database
+
+- id: fluidicswarm-etech
+  category: wip
+  short: "SIGGRAPH 2025 E-Tech"
+  title: "FluidicSwarm: Embodiment of Swarm Robots Using Fluid Behavior Imitation"
+  authors: Michikuni Eguchi, Mai Nishimura, Shigeo Yoshida, and Takefumi Hiraki
+  venue: ACM SIGGRAPH 2025 Emerging Technologies, Vancouver, Canada, 2025
+  year: 2025
+  project: fluidic-body
+
+- id: easys-icra
+  category: wip
+  short: "ICRA 2024 (Video)"
+  title: "Open Source Underwater Robot: Easys"
+  authors: M. Eguchi, K. Kato, T. Oshima, and S. Hara
+  venue: IEEE International Conference on Robotics and Automation (ICRA 2024)
+  year: 2024
+  project: underwater-robot
+
+# ---------- 国内会議 ----------
+- id: vrsj2026-design
+  category: domestic
+  short: "VRSJ 2026"
+  title: 触質感デザインにむけた生成モデル埋め込み空間の次元特定による制御軸推薦モデル
+  authors: 江口 満国, 佐久間 亮太, 平木 剛史
+  venue: 第31回 日本バーチャルリアリティ学会大会, 4 pages, 2026.9
+  year: 2026
+
+- id: vrsj2026-cavitation
+  category: domestic
+  short: "VRSJ 2026"
+  title: レーザー誘起キャビテーションによる触覚ディスプレイに向けた空間的提示特性の基礎検討
+  authors: 駒谷 昌輝, 江口 満国, 平木 剛史
+  venue: 第31回 日本バーチャルリアリティ学会大会, 4 pages, 2026.9
+  year: 2026
+  project: laser-haptics
+
+- id: vrsj2026-tactscribe
+  category: domestic
+  short: "VRSJ 2026"
+  title: "TactScribe: 自然な撫で動作による振動触覚データ収集のためのウェアラブル指先センサ"
+  authors: 半澤 玲奈, 江口 満国, 森 健一, 野々垣 弥玖, 森田 暢謙, 平木 剛史
+  venue: 第31回 日本バーチャルリアリティ学会大会, 4 pages, 2026.9
+  year: 2026
+
+- id: robomech2026-flow
+  category: domestic
+  short: "ROBOMECH 2026"
+  title: Flow matchingを用いた低遅延・高精度な振動触覚データ生成
+  authors: 江口 満国, 廣井 裕一, 平木 剛史
+  venue: ロボティクス・メカトロニクス講演会2026予稿集, pp. 2P1-W04:1–4, 2026.6
+  year: 2026
+  project: haptoflow
+
+# TODO(要確認): 旧サイトでは 2024 年の欄に「VRSJ2025」「第28回」と書かれていた。年と回数を確認して直す
+- id: vrsj-cloth
+  category: domestic
+  short: "VRSJ 2025"
+  title: 衣服触覚特性の定量評価に向けた触覚データ収録システム
+  authors: 江口 満国, 北岸 毅一, 廣井 裕一, 平木 剛史
+  venue: 第28回バーチャルリアリティ学会大会 VRSJ2025
+  year: 2024
+
+- id: si2024-pouch
+  category: domestic
+  short: "SI 2024"
+  title: レーザー誘起キャビテーションを用いたパウチ型空中触覚提示デバイス
+  authors: 江口満国, 佐久間亮太, 平木剛史
+  venue: 第25回計測自動制御学会システムインテグレーション部門講演会 (SI2024)
+  year: 2024
+  project: laser-haptics
+
+- id: mamp2024-swarm
+  category: domestic
+  short: "MAMP 2024"
+  title: 障害物非認識環境のための流体挙動模倣による群ロボットナビゲーション
+  authors: 江口満国
+  venue: マルチエージェント・マルチロボットプランニング研究会 2024
+  year: 2024
+  project: robot-swarm
+
+- id: robomech2024-vlc
+  category: domestic
+  short: "ROBOMECH 2024"
+  title: 空間分割型可視光通信を用いた飛行ロボット制御のための3次元位置推定手法
+  authors: 江口満国, 平木剛史
+  venue: ロボティクス・メカトロニクス講演会講演概要集 2024 (pp. 1A1-O10), 一般社団法人 日本機械学会
+  year: 2024
+  project: visible-light-localization
+
+- id: vrsj2023-laser
+  category: domestic
+  short: "VRSJ 2023"
+  title: レーザー光照射による熱弾性効果を用いた空中触覚提示の性能評価
+  authors: 江口満国, 松下幸太郎, 平木剛史
+  venue: 第28回バーチャルリアリティ学会大会 (VRSJ2023)
+  year: 2023
+  project: laser-haptics
+
+- id: mscs2023-motorcycle
+  category: domestic
+  short: "MSCS 2023"
+  title: 非線形モデル予測制御を用いた自律型二輪車のサーキット走行におけるライン取り
+  authors: 江口満国, 伊達央
+  venue: 第10回制御部門マルチシンポジウム (MSCS2023), 公益社団法人 計測自動制御学会
+  year: 2023
+  project: motorcycle-mpc
+
+- id: robomech2020-wankel
+  category: domestic
+  short: "ROBOMECH 2020"
+  title: バンケル型ロータリエンジンコンプレッサを用いた独立型一脚ロボット
+  authors: 江口満国, 清水俊彦, 池本周平, 更谷雄三
+  venue: ロボティクス・メカトロニクス講演会講演概要集 2020 (pp. 2P1-J05), 一般社団法人 日本機械学会
+  year: 2020
+  project: wankel-compressor

@@ -1,0 +1,76 @@
+---
+import { highlightSelf, url, type getPublications } from '../lib/site';
+
+interface Props {
+  pub: Awaited<ReturnType<typeof getPublications>>[number];
+  showProject?: boolean;
+}
+const { pub, showProject = true } = Astro.props;
+const d = pub.data;
+const LINK_LABEL: Record<string, string> = {
+  doi: 'DOI',
+  arxiv: 'arXiv',
+  project: 'Project page',
+  pdf: 'PDF',
+  video: 'Video',
+  code: 'Code',
+  dataset: 'Dataset',
+};
+---
+
+<li class="pub">
+  <div class="title">{d.title}</div>
+  <div class="authors" set:html={highlightSelf(d.authors)} />
+  <div class="venue">{d.venue}</div>
+  {
+    (Object.keys(d.links).length > 0 || d.award || (showProject && d.project)) && (
+      <div class="row">
+        {d.award && <span class="award">🏆 {d.award}</span>}
+        {Object.entries(d.links).map(([k, v]) => (
+          <a class="pill" href={v} target="_blank" rel="noopener">
+            {LINK_LABEL[k] ?? k}
+          </a>
+        ))}
+        {showProject && d.project && (
+          <a class="pill" href={url(`/projects/${d.project}`)}>
+            Project ↗
+          </a>
+        )}
+      </div>
+    )
+  }
+</li>
+
+<style>
+  .pub {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .pub:last-child {
+    border-bottom: none;
+  }
+  .title {
+    font-weight: 600;
+    line-height: 1.5;
+  }
+  .authors {
+    font-size: 0.92rem;
+    margin-top: 2px;
+  }
+  .authors :global(.self) {
+    text-decoration: underline;
+    text-decoration-color: var(--accent);
+    text-underline-offset: 3px;
+  }
+  .venue {
+    font-size: 0.88rem;
+    color: var(--muted);
+    font-style: italic;
+  }
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 8px;
+  }
+</style>

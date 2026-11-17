@@ -1,0 +1,146 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import NewsList from '../components/NewsList.astro';
+import SocialIcon from '../components/SocialIcon.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { getNews, getProjects, profile, url } from '../lib/site';
+import photo from '../assets/profile/photo.jpg';
+
+const news = (await getNews()).slice(0, 6);
+const projects = await getProjects();
+const featured = projects.filter((p) => p.data.featured);
+---
+
+<Base>
+  <section class="hero">
+    <Image class="photo" src={photo} alt={profile.name} width={320} height={320} loading="eager" />
+    <div>
+      <h1>{profile.name} <span class="ja">{profile.nameJa}</span></h1>
+      <p class="tagline">{profile.tagline}</p>
+      <p class="bio">{profile.bio}</p>
+      <div class="interests">{profile.interests.map((i) => <span class="tag">{i}</span>)}</div>
+      <div class="contact">
+        {
+          profile.links.map((l) => (
+            <a class="social" href={l.url} target="_blank" rel="noopener" aria-label={l.label}>
+              <SocialIcon name={l.icon} size={17} />
+              <span>{l.handle ?? l.label}</span>
+            </a>
+          ))
+        }
+        <a class="social" href={url('/cv')}>CV</a>
+        <span class="email"><SocialIcon name="email" size={15} /> {profile.email}</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>News</h2>
+      <a class="more" href={url('/news')}>All news →</a>
+    </div>
+    <NewsList items={news} />
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>Featured Projects</h2>
+      <a class="more" href={url('/projects')}>All {projects.length} projects →</a>
+    </div>
+    <div class="grid">{featured.map((p) => <ProjectCard project={p} />)}</div>
+  </section>
+</Base>
+
+<style>
+  .hero {
+    display: grid;
+    grid-template-columns: 168px 1fr;
+    gap: 36px;
+    align-items: center;
+    padding-top: 16px;
+  }
+  .hero :global(.photo) {
+    width: 168px;
+    height: 168px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid var(--surface);
+    box-shadow: var(--shadow);
+  }
+  h1 {
+    font-size: clamp(1.8rem, 4.5vw, 2.6rem);
+    margin: 0;
+  }
+  .ja {
+    font-size: 0.5em;
+    font-weight: 500;
+    color: var(--muted);
+    margin-left: 6px;
+    white-space: nowrap;
+  }
+  .tagline {
+    margin: 4px 0 0;
+    font-weight: 500;
+    color: var(--accent-text);
+  }
+  .bio {
+    margin: 12px 0;
+    max-width: 62ch;
+  }
+  .interests,
+  .contact {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+  }
+  .contact {
+    margin-top: 14px;
+  }
+  .contact {
+    gap: 8px;
+  }
+  .social {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text);
+    font-size: 0.88rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: border-color 0.15s, color 0.15s;
+  }
+  .social:hover {
+    border-color: var(--accent);
+    color: var(--accent-text);
+  }
+  .email {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-left: 4px;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+  }
+  @media (max-width: 640px) {
+    .hero {
+      grid-template-columns: 1fr;
+      gap: 20px;
+      text-align: left;
+    }
+    .hero :global(.photo) {
+      width: 120px;
+      height: 120px;
+    }
+  }
+</style>

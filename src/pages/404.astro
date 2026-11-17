@@ -1,0 +1,9 @@
+---
+import Base from '../layouts/Base.astro';
+import { url } from '../lib/site';
+---
+
+<Base title="Not found">
+  <h1 class="page-title">Page not found</h1>
+  <p class="page-lead">The page you are looking for does not exist. <a href={url('/')}>Back to home</a></p>
+</Base>
