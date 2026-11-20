@@ -21,6 +21,8 @@ const { Content } = await render(project);
 const pubs = (await getPublications()).filter((p) => p.data.project === project.id);
 const news = (await getNews()).filter((n) => n.data.project === project.id);
 const venues = await getVenues(project);
+// 専用のプロジェクトページがあるときは、詳細はそちらへ誘導する
+const projectPage = d.links.find((l) => /project page/i.test(l.label));
 // YouTube の URL（watch?v= / youtu.be / embed）から動画 ID を取り出す
 const videos = d.videos
   .map((v) => v.match(/(?:v=|youtu\.be\/|embed\/)([\w-]{11})/)?.[1])
@@ -80,6 +82,14 @@ const related = allProjects.filter(
   </figure>
 
   <article class="prose"><Content /></article>
+
+  {
+    projectPage && (
+      <a class="cta" href={projectPage.url} target="_blank" rel="noopener">
+        See the project page for details ↗
+      </a>
+    )
+  }
 
   {
     videos.map((v) => (
@@ -230,6 +240,22 @@ const related = allProjects.filter(
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 16px;
     margin-top: 24px;
+  }
+  .cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 8px;
+    padding: 10px 20px;
+    border-radius: 999px;
+    background: var(--accent);
+    color: #1d1c1a;
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .cta:hover {
+    color: #1d1c1a;
+    filter: brightness(1.08);
   }
   .video {
     margin-top: 28px;
