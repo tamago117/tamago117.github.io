@@ -10,6 +10,7 @@ thumbnail: ../../assets/projects/fluidic-body-card.jpg
 featured: false
 related: [robot-swarm]
 links:
+  - { label: Project page, url: "https://tamago117.github.io/FluidicBody/" }
   - { label: arXiv, url: "https://arxiv.org/abs/2611.06068" }
   - { label: Paper (ACM DL), url: "https://doi.org/10.1145/3859323" }
 gallery:

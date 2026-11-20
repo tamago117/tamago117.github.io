@@ -40,6 +40,7 @@
   links:
     doi: https://doi.org/10.1145/3859323
     arxiv: https://arxiv.org/abs/2611.06068
+    project: https://tamago117.github.io/FluidicBody/
 
 - id: haptic-texture-scidata
   category: journal
