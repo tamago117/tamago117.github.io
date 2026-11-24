@@ -21,6 +21,7 @@ npm run build    # dist/ に出力
 | 動画を埋め込む | プロジェクトに `videos:` で YouTube の URL を並べる |
 | 論文以外の発表先（大会・展示） | プロジェクトの `venues: ["Tsukuba Challenge 2023"]` |
 | 経歴・受賞・スキル | `src/data/profile.yaml` |
+| PDF 版 CV | `src/data/profile.yaml` の `cv:`（英語）を直して `npm run cv:pdf` → 更新された `public/Michikuni_Eguchi_CV.pdf` をコミット。論文は `publications.yaml` から自動で入るので、論文を足したときも再実行する |
 
 ### News の例
 

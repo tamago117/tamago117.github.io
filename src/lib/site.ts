@@ -24,7 +24,22 @@ export type Profile = {
   grants: { period: string; title: string; detail?: string }[];
   scholarships: { period: string; title: string }[];
   skills: { area: string; items: string }[];
+  cv: {
+    email: string;
+    links: { label: string; text: string; url: string }[];
+    summary: string;
+    interests: { title: string; text: string }[];
+    education: { period: string; degree: string; institution: string; supervisor: string }[];
+    experience: { period: string; role: string; org: string; work: string }[];
+    grants: string[];
+    awards: { year: number; title: string }[];
+    domesticVenues: Record<string, string>;
+    skills: { area: string; items: string }[];
+  };
 };
+
+/** PDF 版 CV のファイル名（public/ に置く） */
+export const CV_PDF = 'Michikuni_Eguchi_CV.pdf';
 
 export const profile = yaml.load(profileRaw) as Profile;
 

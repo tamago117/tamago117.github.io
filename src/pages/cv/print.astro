@@ -1,0 +1,416 @@
+---
+// PDF 版 CV の元になるページ。`npm run cv:pdf` がこのページを A4 で印刷して
+// public/Michikuni_Eguchi_CV.pdf を作る。サイトの見た目とは独立させている。
+import { profile, getPublications, inlineMd, url } from '../../lib/site';
+
+const cv = profile.cv;
+const pubs = await getPublications();
+type Pub = (typeof pubs)[number];
+
+const SELF = /^(Michikuni Eguchi|M\. Eguchi)$/;
+const escapeHtml = (s: string) =>
+  s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+/** "Michikuni Eguchi, Shigeo Yoshida, and Takefumi Hiraki" → ["Michikuni Eguchi", ...] */
+const splitAuthors = (s: string) =>
+  s
+    .split(/\s*,\s*(?:and\s+)?|\s+and\s+/)
+    .map((a) => a.trim())
+    .filter(Boolean);
+
+/** "Michikuni Eguchi" → "M. Eguchi"（すでに略してあればそのまま） */
+const abbreviate = (name: string) => {
+  const parts = name.split(/\s+/);
+  if (parts.length < 2 || /\.$/.test(parts[0])) return name;
+  const last = parts.pop()!;
+  return [...parts.map((p) => `${p[0]}.`), last].join(' ');
+};
+
+const authorsHtml = (s: string) =>
+  splitAuthors(s)
+    .map((a) => {
+      const short = escapeHtml(abbreviate(a));
+      return SELF.test(a) ? `<strong>${short}</strong>` : short;
+    })
+    .join(', ');
+
+const isFirstAuthor = (p: Pub) => SELF.test(splitAuthors(p.data.authors)[0] ?? '');
+/** 発表先の末尾を整える（年が無ければ足し、ピリオドで終える） */
+const venueText = (p: Pub) => {
+  let v = p.data.venue.trim();
+  if (!v.includes(String(p.data.year))) v = `${v}, ${p.data.year}`;
+  return /[.]$/.test(v) ? v : `${v}.`;
+};
+const doi = (p: Pub) => p.data.links.doi?.replace(/^https?:\/\/doi\.org\//, '');
+
+const by = (cat: Pub['data']['category']) => pubs.filter((p) => p.data.category === cat);
+const groups = [
+  { label: 'Journal Articles', items: by('journal') },
+  { label: 'International Conferences (Full Papers)', items: by('conference') },
+  { label: 'International Conferences (WiP / Demo / Poster)', items: by('wip') },
+  { label: 'Preprints', items: by('preprint') },
+].filter((g) => g.items.length);
+
+const firstCount = (cat: Pub['data']['category']) => by(cat).filter(isFirstAuthor).length;
+const plural = (n: number, word: string) => `${n} ${word}${n === 1 ? '' : 's'}`;
+const firstAuthorLine = `First author of ${[
+  plural(firstCount('journal'), 'journal article'),
+  plural(firstCount('conference'), 'international full paper'),
+  plural(firstCount('wip'), 'international WiP/demo/poster paper'),
+].join(', ').replace(/, ([^,]*)$/, ', and $1')}.`;
+
+// 国内会議は件数と発表先の要約だけ（全件はサイトの Publications に載っている）
+const domestic = by('domestic');
+const years = domestic.map((p) => p.data.year);
+const venueYears = new Map<string, number[]>();
+for (const p of domestic) {
+  const m = (p.data.short ?? '').match(/^(.*?)\s*(\d{4})$/);
+  const name = m ? m[1] : (p.data.short ?? 'Other');
+  const year = m ? Number(m[2]) : p.data.year;
+  venueYears.set(name, [...(venueYears.get(name) ?? []), year]);
+}
+const venueSummary = [...venueYears.entries()]
+  .sort((a, b) => b[1].length - a[1].length)
+  .map(([name, ys]) => {
+    const label = cv.domesticVenues[name] ?? name;
+    const counts = new Map<number, number>();
+    for (const y of ys) counts.set(y, (counts.get(y) ?? 0) + 1);
+    const list = [...counts.entries()]
+      .sort((a, b) => a[0] - b[0])
+      .map(([y, n]) => (n > 1 ? `${y} ×${n}` : `${y}`));
+    return list.length > 1 ? `${label} (${list.join(', ')})` : `${label} ${list[0]}`;
+  });
+const domesticVenueText =
+  venueSummary.length > 1
+    ? `${venueSummary.slice(0, -1).join(', ')}, and ${venueSummary.at(-1)}`
+    : venueSummary[0];
+const pubsUrl = new URL(url('/publications'), Astro.site).href;
+const pubsLabel = pubsUrl.replace(/^https?:\/\//, '').replace(/\/$/, '');
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>{profile.name} — Curriculum Vitae</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500&display=block"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <article class="cv">
+      <header>
+        <h1>{profile.name}</h1>
+        <p class="tagline">{profile.tagline}</p>
+        <p class="contact">
+          Email: <a href={`mailto:${cv.email}`}>{cv.email}</a>
+          {
+            cv.links.map((l) => (
+              <>
+                {' · '}
+                {l.label}: <a href={l.url}>{l.text}</a>
+              </>
+            ))
+          }
+        </p>
+      </header>
+
+      <section>
+        <h2>Research Interests</h2>
+        <p>{cv.summary}</p>
+        <ul>
+          {
+            cv.interests.map((i) => (
+              <li>
+                <strong>{i.title}:</strong> {i.text}
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+
+      <section>
+        <h2>Education</h2>
+        <table>
+          <thead>
+            <tr><th class="period">Period</th><th>Degree / Program</th><th>Institution</th><th>Supervisor</th></tr>
+          </thead>
+          <tbody>
+            {
+              cv.education.map((e) => (
+                <tr>
+                  <td class="period">{e.period}</td>
+                  <td>{e.degree}</td>
+                  <td>{e.institution}</td>
+                  <td>{e.supervisor}</td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </section>
+
+      <section>
+        <h2>Research Experience</h2>
+        <table>
+          <thead>
+            <tr><th class="period">Period</th><th>Role</th><th>Organization</th><th>Work</th></tr>
+          </thead>
+          <tbody>
+            {
+              cv.experience.map((e) => (
+                <tr>
+                  <td class="period">{e.period}</td>
+                  <td>{e.role}</td>
+                  <td>{e.org}</td>
+                  <td>{e.work}</td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </section>
+
+      <section>
+        <h2>Grants and Fellowships</h2>
+        <ul>{cv.grants.map((g) => <li set:html={inlineMd(g)} />)}</ul>
+      </section>
+
+      <section>
+        <h2>Awards</h2>
+        <ul>
+          {
+            cv.awards.map((a) => (
+              <li>
+                <strong>{a.year}</strong> — {a.title}
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+
+      <section class="pubs">
+        <h2>Publications</h2>
+        <p class="lead"><strong>{firstAuthorLine}</strong></p>
+        {
+          groups.map((g) => (
+            <div class="group">
+              <h3>{g.label}</h3>
+              <ol>
+                {g.items.map((p) => (
+                  <li>
+                    <Fragment set:html={authorsHtml(p.data.authors)} />. “{p.data.title}.” <em>{venueText(p)}</em>
+                    {doi(p) && (
+                      <>
+                        {' '}DOI: <a href={p.data.links.doi}>{doi(p)}</a>
+                      </>
+                    )}
+                    {p.data.award && (
+                      <>
+                        {' — '}
+                        <strong>{p.data.award}</strong>
+                      </>
+                    )}
+                  </li>
+                ))}
+              </ol>
+            </div>
+          ))
+        }
+        {
+          domestic.length > 0 && (
+            <div class="group">
+              <h3>Domestic Conferences (in Japanese)</h3>
+              <p>
+                {domestic.length} papers, {Math.min(...years)}–{Math.max(...years)}, including {domesticVenueText}. Full list:{' '}
+                <a href={pubsUrl}>{pubsLabel}</a>
+              </p>
+            </div>
+          )
+        }
+      </section>
+
+      <section>
+        <h2>Skills</h2>
+        <table class="skills">
+          <thead>
+            <tr><th>Area</th><th>Skills</th></tr>
+          </thead>
+          <tbody>
+            {
+              cv.skills.map((s) => (
+                <tr>
+                  <td>{s.area}</td>
+                  <td>{s.items}</td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </section>
+    </article>
+  </body>
+</html>
+
+<style is:global>
+  @page {
+    size: A4;
+    margin: 18mm 18mm 18mm 18mm;
+    @top-left {
+      content: 'Michikuni Eguchi';
+      font: 7pt 'Inter', sans-serif;
+      color: #888;
+    }
+    @bottom-right {
+      content: 'Page ' counter(page) ' of ' counter(pages);
+      font: 7pt 'Inter', sans-serif;
+      color: #888;
+    }
+  }
+  :root {
+    color-scheme: light;
+    --text: #1d1c1a;
+    --muted: #5f5b54;
+    --rule: #e3e0d8;
+    --head-bg: #f3f2ef;
+    --link: #1f5fbf;
+  }
+  * {
+    box-sizing: border-box;
+  }
+  html {
+    background: #e9e7e2;
+  }
+  body {
+    margin: 0;
+    color: var(--text);
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 9.6pt;
+    line-height: 1.45;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .cv {
+    max-width: 210mm;
+    margin: 24px auto;
+    padding: 18mm;
+    background: #fff;
+    box-shadow: 0 2px 12px rgb(0 0 0 / 0.12);
+  }
+  @media print {
+    html {
+      background: #fff;
+    }
+    .cv {
+      margin: 0;
+      padding: 0;
+      max-width: none;
+      box-shadow: none;
+    }
+  }
+  @media screen and (max-width: 640px) {
+    .cv {
+      margin: 0;
+      padding: 24px 16px;
+      box-shadow: none;
+    }
+    table {
+      font-size: 9pt;
+    }
+  }
+  a {
+    color: var(--link);
+  }
+  h1,
+  h2,
+  h3 {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    margin: 0;
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+  h1 {
+    font-size: 26pt;
+    line-height: 1.15;
+  }
+  h2 {
+    font-size: 15pt;
+    margin: 16pt 0 5pt;
+  }
+  h3 {
+    font-size: 11.5pt;
+    margin: 10pt 0 4pt;
+  }
+  header p {
+    margin: 4pt 0 0;
+  }
+  .tagline {
+    font-size: 10.5pt;
+  }
+  p {
+    margin: 0 0 4pt;
+  }
+  ul,
+  ol {
+    margin: 4pt 0 0;
+    padding-left: 18pt;
+  }
+  li {
+    margin-bottom: 2pt;
+    break-inside: avoid;
+  }
+  .pubs ol li {
+    padding-left: 2pt;
+  }
+  .lead {
+    margin-bottom: 0;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 4pt;
+    font-size: 9.2pt;
+  }
+  thead {
+    display: table-header-group;
+  }
+  tr {
+    break-inside: avoid;
+  }
+  th,
+  td {
+    border: 1px solid var(--rule);
+    padding: 3pt 6pt;
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    background: var(--head-bg);
+    color: var(--muted);
+    font-weight: 400;
+  }
+  .period {
+    width: 7.2em;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+  table.skills {
+    break-inside: avoid;
+  }
+  table.skills td:first-child {
+    width: 9.5em;
+    white-space: nowrap;
+  }
+  /* 見出しが単独でページ末に残らないよう、直後の要素と一緒に送る */
+  h2 + *,
+  h3 + * {
+    break-before: avoid;
+  }
+</style>

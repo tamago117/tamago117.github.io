@@ -86,3 +86,69 @@ skills:
     items: ROS 1, ROS 2, Image processing (OpenCV)
   - area: Mechanical / Electronics
     items: Mechanical design (SolidWorks, Fusion 360), Circuit design (Eagle)
+
+# ---------- PDF 版 CV（/cv/print → public/Michikuni_Eguchi_CV.pdf） ----------
+# 提出用なので英語のみで書く。論文は publications.yaml から自動で入る。
+# 編集したら `npm run cv:pdf` で PDF を作り直してコミットする。
+cv:
+  email: egrt117@gmail.com
+  links:
+    - { label: Web, text: tamago117.github.io, url: "https://tamago117.github.io" }
+    - { label: GitHub, text: tamago117, url: "https://github.com/tamago117" }
+    - { label: LinkedIn, text: michikuni-eguchi, url: "https://www.linkedin.com/in/michikuni-eguchi-b93bb3208/" }
+  summary: >-
+    I build systems that act intelligently for both humans and robots,
+    spanning haptics, human-computer interaction, and robotics.
+  interests:
+    - title: Haptic generative AI
+      text: real-time vibrotactile generation with flow matching, haptic datasets, and vision-language annotation of haptic properties
+    - title: Embodied interaction with robot swarms
+      text: controlling swarms as a fluid extension of the user's body
+    - title: Robot navigation and control
+      text: learning-based visual navigation, nonlinear model predictive control, and swarm control based on smoothed particle hydrodynamics
+  education:
+    - { period: Apr 2025 – present, degree: Ph.D., institution: University of Tsukuba, supervisor: Takefumi Hiraki }
+    - { period: Apr 2023 – Mar 2025, degree: M.S., institution: University of Tsukuba, supervisor: Takefumi Hiraki }
+    - { period: Apr 2021 – Mar 2023, degree: B.S., institution: University of Tsukuba, supervisor: Hisashi Date }
+    - { period: Apr 2015 – Mar 2020, degree: "Associate degree, Dept. of Mechanical Engineering", institution: Kobe City College of Technology, supervisor: Toshihiko Shimizu }
+  experience:
+    - period: Sep 2025 – Oct 2025
+      role: Research Intern
+      org: CyberAgent AI Lab, Activity Understanding Team
+      work: "Learning-based visual navigation from a remote camera (ReVNM). Mentors: Kohei Honda, Ryo Yonetani"
+    - period: Aug 2023 – present
+      role: Research Assistant
+      org: Cluster Metaverse Lab
+      work: Haptic datasets, haptic generative models, swarm-robot interaction
+    - period: Jan 2022 – Mar 2024
+      role: Part-time Engineer
+      org: ARAV Inc.
+      work: Simulator for autonomous operation of construction machinery
+    - period: Apr 2022 – Mar 2023
+      role: Undergraduate Researcher
+      org: Intelligent Robotics Laboratory, University of Tsukuba
+      work: Nonlinear model predictive control for autonomous motorcycles
+  # **太字** と [text](url) が使える
+  grants:
+    - "**JST ACT-X** (Principal Investigator), Oct 2025 – Mar 2028: “Haptic generative AI with user-motion feedback”"
+    - "**JSPS Research Fellowship for Young Scientists (DC1)**, Apr 2025 – Mar 2028"
+    - "Hara Foundation for Full-Time System Science and Technology Scholarship, Aug 2021 – Mar 2023"
+    - "Iwasa Foundation for Education and Culture Scholarship, Apr 2022 – Mar 2023"
+  awards:
+    - { year: 2026, title: "ACM ISS 2026 Best Paper Award (Fluidic Body)" }
+    - { year: 2024, title: "SICE International Young Authors Award (SIYA-IROS2024)" }
+    - { year: 2023, title: "Video Division Winner, Underwater Robot Competition in JAMSTEC 2023 (Japan Underwater Robot Net)" }
+    - { year: 2023, title: "Completed all course sections, Tsukuba Challenge 2023 (autonomous navigation)" }
+    - { year: 2018, title: "ROHM Co., Ltd. Special Award, NHK National Technical Robot Contest (Kosen Robocon) 2018" }
+  # 国内会議の要約に使う正式名（publications.yaml の short から年を除いた部分 → 表示名）
+  domesticVenues:
+    VRSJ: VRSJ Annual Conference
+    ROBOMECH: JSME ROBOMECH
+    SI: SICE SI
+    MSCS: SICE MSCS
+    MAMP: Multi-Agent Multi-Robot Planning Workshop
+  skills:
+    - { area: Programming, items: "Python, C/C++, C# (Unity)" }
+    - { area: Machine learning, items: "Generative models (flow matching), vision-language models, learning-based navigation" }
+    - { area: Robotics, items: "ROS 1, ROS 2, OpenCV, nonlinear model predictive control, swarm control" }
+    - { area: Hardware, items: "Mechanical design (SolidWorks, Fusion 360), circuit design (Eagle), haptic device and sensor prototyping" }
