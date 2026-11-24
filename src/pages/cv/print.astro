@@ -51,6 +51,9 @@ const groups = [
 ].filter((g) => g.items.length);
 
 const hasDomestic = by('domestic').length > 0;
+/** inlineMd の結果のサイト内リンクを絶対 URL にする（PDF の中ではページの場所が無いため） */
+const md = (src: string) =>
+  inlineMd(src).replace(/href="(\/[^"]*)"/g, (_, path) => `href="${new URL(path, Astro.site).href}"`);
 const pubsUrl = new URL(url('/publications'), Astro.site).href;
 const pubsLabel = pubsUrl.replace(/^https?:\/\//, '').replace(/\/$/, '');
 ---
@@ -135,7 +138,7 @@ const pubsLabel = pubsUrl.replace(/^https?:\/\//, '').replace(/\/$/, '');
                   <td class="period">{e.period}</td>
                   <td>{e.role}</td>
                   <td>{e.org}</td>
-                  <td>{e.work}</td>
+                  <td set:html={md(e.work)} />
                 </tr>
               ))
             }
@@ -145,7 +148,7 @@ const pubsLabel = pubsUrl.replace(/^https?:\/\//, '').replace(/\/$/, '');
 
       <section>
         <h2>Grants and Fellowships</h2>
-        <ul>{cv.grants.map((g) => <li set:html={inlineMd(g)} />)}</ul>
+        <ul>{cv.grants.map((g) => <li set:html={md(g)} />)}</ul>
       </section>
 
       <section>

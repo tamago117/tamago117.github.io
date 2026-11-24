@@ -111,15 +111,16 @@ cv:
     - { period: Apr 2023 – Mar 2025, degree: M.S., institution: University of Tsukuba, supervisor: Takefumi Hiraki }
     - { period: Apr 2021 – Mar 2023, degree: B.S., institution: University of Tsukuba, supervisor: Hisashi Date }
     - { period: Apr 2015 – Mar 2020, degree: "Associate degree, Dept. of Mechanical Engineering", institution: Kobe City College of Technology, supervisor: Toshihiko Shimizu }
+  # work には [text](/projects/<slug>) でリンクを埋め込める（PDF では絶対 URL になる）
   experience:
     - period: Sep 2025 – Oct 2025
       role: Research Intern
       org: CyberAgent AI Lab, Activity Understanding Team
-      work: "Learning-based visual navigation from a remote camera (ReVNM). Mentors: Kohei Honda, Ryo Yonetani"
+      work: "[Learning-based visual navigation from a remote camera (ReVNM)](/projects/revnm). Mentors: Kohei Honda, Ryo Yonetani"
     - period: Aug 2023 – present
       role: Research Assistant
       org: Cluster Metaverse Lab
-      work: Haptic datasets, haptic generative models, swarm-robot interaction
+      work: "[Haptic datasets](/projects/haptic-texture-database), [haptic generative models](/projects/haptoflow), [swarm-robot interaction](/projects/fluidic-body)"
     - period: Jan 2022 – Mar 2024
       role: Part-time Engineer
       org: ARAV Inc.
@@ -127,7 +128,7 @@ cv:
     - period: Apr 2022 – Mar 2023
       role: Undergraduate Researcher
       org: Intelligent Robotics Laboratory, University of Tsukuba
-      work: Nonlinear model predictive control for autonomous motorcycles
+      work: "[Nonlinear model predictive control for autonomous motorcycles](/projects/motorcycle-mpc)"
   # **太字** と [text](url) が使える
   grants:
     - "**JST ACT-X** (Principal Investigator), Oct 2025 – Mar 2028: “Haptic generative AI with user-motion feedback”"
