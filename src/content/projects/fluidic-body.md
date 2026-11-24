@@ -9,6 +9,7 @@ image: ../../assets/projects/fluidic-body-teaser.jpg
 thumbnail: ../../assets/projects/fluidic-body-card.jpg
 featured: false
 related: [robot-swarm]
+award: ACM ISS 2026 Best Paper Award
 links:
   - { label: Project page, url: "https://tamago117.github.io/FluidicBody/" }
   - { label: arXiv, url: "https://arxiv.org/abs/2611.06068" }

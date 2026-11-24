@@ -7,6 +7,10 @@
 # ↓ 初期データ：旧サイトに載っていた業績・経歴から作ったもの。日付や文面は自由に直してください
 
 - date: "2026.11"
+  text: "🏆 **Fluidic Body** received the **Best Paper Award** at ACM ISS 2026! [Project page](https://tamago117.github.io/FluidicBody/)"
+  project: fluidic-body
+
+- date: "2026.11"
   text: 'Preprint "3D Pose Estimation in Projection Space via Pixel-level Visible Light Communication" is now on [arXiv](https://arxiv.org/abs/2611.06121).'
   project: visible-light-localization
 
