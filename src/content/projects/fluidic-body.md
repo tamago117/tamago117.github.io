@@ -1,5 +1,5 @@
 ---
-title: "FluidicSwarm / Fluidic Body: Swarm Robots as a Fluid Extension of the Hand"
+title: "Fluidic Body: Swarm Robots as a Fluid Extension of the Hand"
 summary: Operate a swarm of fluid-imitating robots as an extension of the hand.
 category: research
 tags: [Robotics]
