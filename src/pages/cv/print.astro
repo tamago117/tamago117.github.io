@@ -34,7 +34,6 @@ const authorsHtml = (s: string) =>
     })
     .join(', ');
 
-const isFirstAuthor = (p: Pub) => SELF.test(splitAuthors(p.data.authors)[0] ?? '');
 /** 発表先の末尾を整える（年が無ければ足し、ピリオドで終える） */
 const venueText = (p: Pub) => {
   let v = p.data.venue.trim();
@@ -51,39 +50,7 @@ const groups = [
   { label: 'Preprints', items: by('preprint') },
 ].filter((g) => g.items.length);
 
-const firstCount = (cat: Pub['data']['category']) => by(cat).filter(isFirstAuthor).length;
-const plural = (n: number, word: string) => `${n} ${word}${n === 1 ? '' : 's'}`;
-const firstAuthorLine = `First author of ${[
-  plural(firstCount('journal'), 'journal article'),
-  plural(firstCount('conference'), 'international full paper'),
-  plural(firstCount('wip'), 'international WiP/demo/poster paper'),
-].join(', ').replace(/, ([^,]*)$/, ', and $1')}.`;
-
-// 国内会議は件数と発表先の要約だけ（全件はサイトの Publications に載っている）
-const domestic = by('domestic');
-const years = domestic.map((p) => p.data.year);
-const venueYears = new Map<string, number[]>();
-for (const p of domestic) {
-  const m = (p.data.short ?? '').match(/^(.*?)\s*(\d{4})$/);
-  const name = m ? m[1] : (p.data.short ?? 'Other');
-  const year = m ? Number(m[2]) : p.data.year;
-  venueYears.set(name, [...(venueYears.get(name) ?? []), year]);
-}
-const venueSummary = [...venueYears.entries()]
-  .sort((a, b) => b[1].length - a[1].length)
-  .map(([name, ys]) => {
-    const label = cv.domesticVenues[name] ?? name;
-    const counts = new Map<number, number>();
-    for (const y of ys) counts.set(y, (counts.get(y) ?? 0) + 1);
-    const list = [...counts.entries()]
-      .sort((a, b) => a[0] - b[0])
-      .map(([y, n]) => (n > 1 ? `${y} ×${n}` : `${y}`));
-    return list.length > 1 ? `${label} (${list.join(', ')})` : `${label} ${list[0]}`;
-  });
-const domesticVenueText =
-  venueSummary.length > 1
-    ? `${venueSummary.slice(0, -1).join(', ')}, and ${venueSummary.at(-1)}`
-    : venueSummary[0];
+const hasDomestic = by('domestic').length > 0;
 const pubsUrl = new URL(url('/publications'), Astro.site).href;
 const pubsLabel = pubsUrl.replace(/^https?:\/\//, '').replace(/\/$/, '');
 ---
@@ -196,7 +163,6 @@ const pubsLabel = pubsUrl.replace(/^https?:\/\//, '').replace(/\/$/, '');
 
       <section class="pubs">
         <h2>Publications</h2>
-        <p class="lead"><strong>{firstAuthorLine}</strong></p>
         {
           groups.map((g) => (
             <div class="group">
@@ -223,11 +189,11 @@ const pubsLabel = pubsUrl.replace(/^https?:\/\//, '').replace(/\/$/, '');
           ))
         }
         {
-          domestic.length > 0 && (
+          hasDomestic && (
             <div class="group">
               <h3>Domestic Conferences (in Japanese)</h3>
               <p>
-                {domestic.length} papers, {Math.min(...years)}–{Math.max(...years)}, including {domesticVenueText}. Full list:{' '}
+                {cv.domesticNote} Full list:{' '}
                 <a href={pubsUrl}>{pubsLabel}</a>
               </p>
             </div>
@@ -368,9 +334,6 @@ const pubsLabel = pubsUrl.replace(/^https?:\/\//, '').replace(/\/$/, '');
   }
   .pubs ol li {
     padding-left: 2pt;
-  }
-  .lead {
-    margin-bottom: 0;
   }
   table {
     width: 100%;

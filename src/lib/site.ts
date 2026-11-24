@@ -33,7 +33,7 @@ export type Profile = {
     experience: { period: string; role: string; org: string; work: string }[];
     grants: string[];
     awards: { year: number; title: string }[];
-    domesticVenues: Record<string, string>;
+    domesticNote: string;
     skills: { area: string; items: string }[];
   };
 };

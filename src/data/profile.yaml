@@ -140,13 +140,8 @@ cv:
     - { year: 2023, title: "Video Division Winner, Underwater Robot Competition in JAMSTEC 2023 (Japan Underwater Robot Net)" }
     - { year: 2023, title: "Completed all course sections, Tsukuba Challenge 2023 (autonomous navigation)" }
     - { year: 2018, title: "ROHM Co., Ltd. Special Award, NHK National Technical Robot Contest (Kosen Robocon) 2018" }
-  # 国内会議の要約に使う正式名（publications.yaml の short から年を除いた部分 → 表示名）
-  domesticVenues:
-    VRSJ: VRSJ Annual Conference
-    ROBOMECH: JSME ROBOMECH
-    SI: SICE SI
-    MSCS: SICE MSCS
-    MAMP: Multi-Agent Multi-Robot Planning Workshop
+  # 国内会議は一覧を載せず、この一文と Publications ページへのリンクだけにする
+  domesticNote: More than 10 papers at domestic conferences, including JSME ROBOMECH and the VRSJ Annual Conference.
   skills:
     - { area: Programming, items: "Python, C/C++, C# (Unity)" }
     - { area: Machine learning, items: "Generative models (flow matching), vision-language models, learning-based navigation" }
