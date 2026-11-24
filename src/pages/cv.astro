@@ -6,7 +6,7 @@ import { profile, url, CV_PDF } from '../lib/site';
 <Base title="CV">
   <div class="cv-head">
     <h1 class="page-title">CV</h1>
-    <a class="pill download" href={url(`/${CV_PDF}`)} download>Download PDF</a>
+    <a class="pill download" href={url(`/${CV_PDF}`)} target="_blank" rel="noopener">PDF</a>
   </div>
   <p class="page-lead">
     {profile.name}（{profile.nameJa}）· {profile.email}
