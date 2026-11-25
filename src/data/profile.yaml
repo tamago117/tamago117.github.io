@@ -110,10 +110,7 @@ cv:
   education:
     - { period: Apr 2025 – present, degree: Ph.D., institution: University of Tsukuba, supervisor: Takefumi Hiraki }
     - { period: Apr 2023 – Mar 2025, degree: M.S., institution: University of Tsukuba, supervisor: Takefumi Hiraki }
-    - period: Apr 2021 – Mar 2023
-      degree: "B.S. — Thesis: [Nonlinear model predictive control for autonomous motorcycles](/projects/motorcycle-mpc)"
-      institution: University of Tsukuba
-      supervisor: Hisashi Date
+    - { period: Apr 2021 – Mar 2023, degree: B.S., institution: University of Tsukuba, supervisor: Hisashi Date }
     - { period: Apr 2015 – Mar 2020, degree: "Associate degree, Dept. of Mechanical Engineering", institution: Kobe City College of Technology, supervisor: Toshihiko Shimizu }
   # 職歴（雇用されていたものだけ）。work には [text](/projects/<slug>) でリンクを埋め込める（PDF では絶対 URL になる）
   experience:

@@ -367,6 +367,10 @@ const pubsLabel = pubsUrl.replace(/^https?:\/\//, '').replace(/\/$/, '');
     white-space: nowrap;
     font-variant-numeric: tabular-nums;
   }
+  /* 論文以外の短いリスト（助成・受賞など）はページをまたがせない */
+  section:not(.pubs) ul {
+    break-inside: avoid;
+  }
   table.education td:nth-child(3),
   table.education td:nth-child(4) {
     white-space: nowrap;
