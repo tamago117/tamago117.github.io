@@ -108,10 +108,10 @@ cv:
       text: learning-based visual navigation, nonlinear model predictive control, and swarm control based on smoothed particle hydrodynamics
   # degree にも [text](/projects/<slug>) でリンクを埋め込める
   education:
-    - { period: Apr 2025 – present, degree: Ph.D., institution: University of Tsukuba, supervisor: Takefumi Hiraki }
-    - { period: Apr 2023 – Mar 2025, degree: M.S., institution: University of Tsukuba, supervisor: Takefumi Hiraki }
-    - { period: Apr 2021 – Mar 2023, degree: B.S., institution: University of Tsukuba, supervisor: Hisashi Date }
-    - { period: Apr 2015 – Mar 2020, degree: "Associate degree, Dept. of Mechanical Engineering", institution: Kobe City College of Technology, supervisor: Toshihiko Shimizu }
+    - { period: Apr 2025 – present, degree: Ph.D. in Informatics, institution: University of Tsukuba, supervisor: Takefumi Hiraki }
+    - { period: Apr 2023 – Mar 2025, degree: Master of Informatics, institution: University of Tsukuba, supervisor: Takefumi Hiraki }
+    - { period: Apr 2021 – Mar 2023, degree: Bachelor of Engineering, institution: University of Tsukuba, supervisor: Hisashi Date }
+    - { period: Apr 2015 – Mar 2020, degree: Associate Degree in Mechanical Engineering, institution: Kobe City College of Technology, supervisor: Toshihiko Shimizu }
   # 職歴（雇用されていたものだけ）。work には [text](/projects/<slug>) でリンクを埋め込める（PDF では絶対 URL になる）
   experience:
     - period: Sep 2025 – Oct 2025
