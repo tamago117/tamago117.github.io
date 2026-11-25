@@ -106,7 +106,7 @@ const pubsLabel = pubsUrl.replace(/^https?:\/\//, '').replace(/\/$/, '');
 
       <section>
         <h2>Education</h2>
-        <table>
+        <table class="education">
           <thead>
             <tr><th class="period">Period</th><th>Degree / Program</th><th>Institution</th><th>Supervisor</th></tr>
           </thead>
@@ -115,7 +115,7 @@ const pubsLabel = pubsUrl.replace(/^https?:\/\//, '').replace(/\/$/, '');
               cv.education.map((e) => (
                 <tr>
                   <td class="period">{e.period}</td>
-                  <td>{e.degree}</td>
+                  <td set:html={md(e.degree)} />
                   <td>{e.institution}</td>
                   <td>{e.supervisor}</td>
                 </tr>
@@ -126,7 +126,7 @@ const pubsLabel = pubsUrl.replace(/^https?:\/\//, '').replace(/\/$/, '');
       </section>
 
       <section>
-        <h2>Research Experience</h2>
+        <h2>Professional Experience</h2>
         <table>
           <thead>
             <tr><th class="period">Period</th><th>Role</th><th>Organization</th><th>Work</th></tr>
@@ -366,6 +366,10 @@ const pubsLabel = pubsUrl.replace(/^https?:\/\//, '').replace(/\/$/, '');
     width: 7.2em;
     white-space: nowrap;
     font-variant-numeric: tabular-nums;
+  }
+  table.education td:nth-child(3),
+  table.education td:nth-child(4) {
+    white-space: nowrap;
   }
   table.skills {
     break-inside: avoid;
