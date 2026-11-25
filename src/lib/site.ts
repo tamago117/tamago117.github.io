@@ -19,11 +19,6 @@ export type Profile = {
   email: string;
   links: { label: string; url: string; handle?: string; icon?: string }[];
   interests: string[];
-  history: { period: string; title: string; detail?: string; url?: string }[];
-  awards: { year: number; title: string }[];
-  grants: { period: string; title: string; detail?: string }[];
-  scholarships: { period: string; title: string }[];
-  skills: { area: string; items: string }[];
   cv: {
     email: string;
     links: { label: string; text?: string; url: string }[]; // text が無ければ label をリンクにする

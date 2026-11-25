@@ -1,6 +1,9 @@
 ---
 import Base from '../layouts/Base.astro';
-import { profile, url, CV_PDF } from '../lib/site';
+import { profile, url, CV_PDF, inlineMd } from '../lib/site';
+
+// PDF 版（/cv/print）と同じ profile.yaml の cv: を表示する。内容を変えるときは cv: を直す
+const cv = profile.cv;
 ---
 
 <Base title="CV">
@@ -14,32 +17,38 @@ import { profile, url, CV_PDF } from '../lib/site';
       profile.links.map((l) => (
         <>
           {' · '}
-          <a href={l.url} target="_blank" rel="noopener">
-            {l.label}: {l.handle ?? l.url}
-          </a>
+          <a href={l.url} target="_blank" rel="noopener">{l.label}{l.handle && l.handle !== l.label ? `: ${l.handle}` : ''}</a>
         </>
       ))
     }
   </p>
 
   <section class="section">
-    <div class="section-head"><h2>Education & Experience</h2></div>
+    <div class="section-head"><h2>Research Interests</h2></div>
+    <p>{cv.summary}</p>
+    <ul class="interests">
+      {
+        cv.interests.map((i) => (
+          <li>
+            <strong>{i.title}:</strong> <Fragment set:html={inlineMd(i.text)} />
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><h2>Education</h2></div>
     <ol class="timeline">
       {
-        profile.history.map((h) => (
+        cv.education.map((e) => (
           <li>
-            <span class="when">{h.period}</span>
+            <span class="when">{e.period}</span>
             <div>
               <div class="what">
-                {h.url ? (
-                  <a href={h.url} target="_blank" rel="noopener">
-                    {h.title}
-                  </a>
-                ) : (
-                  h.title
-                )}
+                {e.degree}, {e.institution}
               </div>
-              {h.detail && <div class="detail">{h.detail}</div>}
+              <div class="detail">Supervisor: {e.supervisor}</div>
             </div>
           </li>
         ))
@@ -48,10 +57,34 @@ import { profile, url, CV_PDF } from '../lib/site';
   </section>
 
   <section class="section">
+    <div class="section-head"><h2>Professional Experience</h2></div>
+    <ol class="timeline">
+      {
+        cv.experience.map((e) => (
+          <li>
+            <span class="when">{e.period}</span>
+            <div>
+              <div class="what">
+                {e.role}, {e.org}
+              </div>
+              <div class="detail" set:html={inlineMd(e.work)} />
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><h2>Grants and Fellowships</h2></div>
+    <ul class="plain-list">{cv.grants.map((g) => <li set:html={inlineMd(g)} />)}</ul>
+  </section>
+
+  <section class="section">
     <div class="section-head"><h2>Awards</h2></div>
     <ol class="timeline">
       {
-        profile.awards.map((a) => (
+        cv.awards.map((a) => (
           <li>
             <span class="when">{a.year}</span>
             <div class="what">{a.title}</div>
@@ -62,41 +95,10 @@ import { profile, url, CV_PDF } from '../lib/site';
   </section>
 
   <section class="section">
-    <div class="section-head"><h2>Research Grants</h2></div>
-    <ol class="timeline">
-      {
-        profile.grants.map((g) => (
-          <li>
-            <span class="when">{g.period}</span>
-            <div>
-              <div class="what">{g.title}</div>
-              {g.detail && <div class="detail">{g.detail}</div>}
-            </div>
-          </li>
-        ))
-      }
-    </ol>
-  </section>
-
-  <section class="section">
-    <div class="section-head"><h2>Scholarships</h2></div>
-    <ol class="timeline">
-      {
-        profile.scholarships.map((s) => (
-          <li>
-            <span class="when">{s.period}</span>
-            <div class="what">{s.title}</div>
-          </li>
-        ))
-      }
-    </ol>
-  </section>
-
-  <section class="section">
     <div class="section-head"><h2>Skills</h2></div>
     <dl class="skills">
       {
-        profile.skills.map((s) => (
+        cv.skills.map((s) => (
           <>
             <dt>{s.area}</dt>
             <dd>{s.items}</dd>
@@ -117,6 +119,15 @@ import { profile, url, CV_PDF } from '../lib/site';
   }
   .download {
     font-weight: 600;
+  }
+  .interests,
+  .plain-list {
+    margin: 8px 0 0;
+    padding-left: 1.2em;
+  }
+  .interests li,
+  .plain-list li {
+    margin-bottom: 8px;
   }
   .timeline {
     list-style: none;
