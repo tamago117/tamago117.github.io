@@ -103,7 +103,7 @@ const pubsLabel = pubsUrl.replace(/^https?:\/\//, '').replace(/\/$/, '');
           {
             cv.interests.map((i) => (
               <li>
-                <strong>{i.title}:</strong> {i.text}
+                <strong>{i.title}:</strong> <Fragment set:html={md(i.text)} />
               </li>
             ))
           }

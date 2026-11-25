@@ -100,13 +100,25 @@ cv:
   summary: >-
     I build systems that act intelligently for both humans and robots,
     spanning haptics, human-computer interaction, and robotics.
+  # 各項目は「何に興味があるか」→「その例（これまでの研究）」の順に書く。[text](/projects/<slug>) でリンクできる
   interests:
     - title: Haptic generative AI
-      text: real-time vibrotactile generation with flow matching, haptic datasets, and vision-language annotation of haptic properties
+      text: >-
+        I am interested in modeling touch as part of the intelligence of AI,
+        so that machines can understand and generate haptic experiences, as in
+        real-time vibrotactile generation with flow matching ([HaptoFlow](/projects/haptoflow)),
+        large-scale haptic texture datasets ([Cluster Haptic Texture Dataset](/projects/haptic-texture-database)),
+        and estimating haptic properties from images with vision-language models (HapCap).
     - title: Embodied interaction with robot swarms
-      text: controlling swarms as a fluid extension of the user's body
+      text: >-
+        I am interested in how a swarm of robots can be felt and controlled as part of the user's own body,
+        as in swarm robots that move as a fluid extension of the hand ([Fluidic Body](/projects/fluidic-body)).
     - title: Robot navigation and control
-      text: learning-based visual navigation, nonlinear model predictive control, and swarm control based on smoothed particle hydrodynamics
+      text: >-
+        I am interested in giving robots the intelligence to move robustly in the real world,
+        as in visual navigation learned from a remote camera ([ReVNM](/projects/revnm)),
+        nonlinear model predictive control for autonomous motorcycles ([NMPC](/projects/motorcycle-mpc)),
+        and swarm control based on smoothed particle hydrodynamics ([SPH swarm](/projects/robot-swarm)).
   # degree にも [text](/projects/<slug>) でリンクを埋め込める
   education:
     - { period: Apr 2025 – present, degree: Ph.D. in Informatics, institution: University of Tsukuba, supervisor: Takefumi Hiraki }
