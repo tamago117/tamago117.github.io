@@ -96,6 +96,7 @@ cv:
     - { label: Web, text: tamago117.github.io, url: "https://tamago117.github.io" }
     - { label: GitHub, text: tamago117, url: "https://github.com/tamago117" }
     - { label: LinkedIn, text: michikuni-eguchi, url: "https://www.linkedin.com/in/michikuni-eguchi-b93bb3208/" }
+    - { label: Google Scholar, url: "https://scholar.google.com/citations?user=v7o7sv0AAAAJ" }
   summary: >-
     I build systems that act intelligently for both humans and robots,
     spanning haptics, human-computer interaction, and robotics.
@@ -145,3 +146,4 @@ cv:
     - { area: Machine learning, items: "Generative models (flow matching), vision-language models, learning-based navigation" }
     - { area: Robotics, items: "ROS 1, ROS 2, OpenCV, nonlinear model predictive control, swarm control" }
     - { area: Hardware, items: "Mechanical design (SolidWorks, Fusion 360), circuit design (Eagle), haptic device and sensor prototyping" }
+    - { area: Languages, items: "Japanese (native), English (conversational)" }

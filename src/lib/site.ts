@@ -26,7 +26,7 @@ export type Profile = {
   skills: { area: string; items: string }[];
   cv: {
     email: string;
-    links: { label: string; text: string; url: string }[];
+    links: { label: string; text?: string; url: string }[]; // text が無ければ label をリンクにする
     summary: string;
     interests: { title: string; text: string }[];
     education: { period: string; degree: string; institution: string; supervisor: string }[];

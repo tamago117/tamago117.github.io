@@ -83,7 +83,13 @@ const pubsLabel = pubsUrl.replace(/^https?:\/\//, '').replace(/\/$/, '');
             cv.links.map((l) => (
               <>
                 {' · '}
-                {l.label}: <a href={l.url}>{l.text}</a>
+                {l.text ? (
+                  <>
+                    {l.label}: <a href={l.url}>{l.text}</a>
+                  </>
+                ) : (
+                  <a href={l.url}>{l.label}</a>
+                )}
               </>
             ))
           }
